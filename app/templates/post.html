@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>PostNot</h2>
+    <form method="post" action="{{ url_for('post') }}">
+        <p><label>Name: <input type="text" name="Name" required value="{{ user | safe }}"></label></p>
+        <p><label><textarea name="Text" required></textarea></label></p>
+        <button type="submit">Post</button>
+    </form>
+    {% if record %}
+        <blockquote>
+            <a class="delete" href="/delete/{{ record.get("id") }}">X</a>
+            <p>{{ record.get('Text') }}</p>
+            <cite>{{ record.get('Name') }}</cite>
+        </blockquote>
+    {% endif %}
+{% endblock %}

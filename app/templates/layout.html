@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <title>NotTwitter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reset.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/colors.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+</head>
+<body>
+<header>
+    <h1><a href="/">NotTwitter</a></h1>
+</header>
+<nav>
+    <ul>
+        <li><a href="{{ url_for('home') }}">HOME</a></li>
+        <li><a href="{{ url_for('feed') }}">FEED</a></li>
+        <li><a href="{{ url_for('post') }}">POST</a></li>
+    </ul>
+</nav>
+<article>
+    {% block content %}
+    {% endblock %}
+</article>
+</body>
+</html>

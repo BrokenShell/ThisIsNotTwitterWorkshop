@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h2>FeedNot</h2>
+    {% if payload %}
+        {% for record in payload %}
+            <blockquote>
+                <a class="delete" href="/delete/{{ record.get("id") }}">X</a>
+                <p>{{ record.get('Text') }}</p>
+                <cite>{{ record.get('Name') }}</cite>
+            </blockquote>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
