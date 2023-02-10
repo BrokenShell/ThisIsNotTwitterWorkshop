@@ -2,3 +2,5 @@ Flask
 pymongo[srv]
 gunicorn
 python-dotenv
+openai
+Fortuna
