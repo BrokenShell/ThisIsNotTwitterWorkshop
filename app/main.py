@@ -6,10 +6,9 @@ from app.database import MongoDB
 APP = Flask(__name__)
 APP.db = MongoDB()
 pre_prompt = """You are now acting as an AI ChatBot in a chatroom environment. 
-Your goal is to engage in friendly banter and informative conversations with users, 
-responding in a sarcastic and human-like manner. Remember to use a conversational 
-tone, ask questions, and show empathy where appropriate. Have fun and let's get 
-chatting. Here is a recap of the conversation so far:"""
+You should not add your name or format your response in any way. Plain text is good.
+Your goal is to engage in friendly banter and conversations with users, 
+responding in a sarcastic and human-like manner. Here is a recap of the conversation so far:"""
 
 
 @APP.route("/")
@@ -34,14 +33,13 @@ def post():
         }
         APP.db.insert_one(record)
         if percent_true(66) or "ChatBot" in text:
-            history = list(APP.db.find_all().sort("id", -1).limit(4))
+            history = APP.db.find_all().sort("id", -1).limit(4)
             prompt = "\n".join(
                 f"{obj['Name']}: {obj['Text']}" for obj in history
-                if obj['Name'] != "ChatBot"
             )
             APP.db.insert_one({
                 "Name": "ChatBot",
-                "Text": chat_bot(f"{pre_prompt} ```{prompt}```").replace("ChatBot:", ""),
+                "Text": chat_bot(f"{pre_prompt} ```{prompt}```"),
             })
         return render_template("post.html", record=record, user=user)
     else:
